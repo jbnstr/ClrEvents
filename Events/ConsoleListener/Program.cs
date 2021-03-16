@@ -19,7 +19,7 @@ namespace ConsoleListener
         // The simulator application could be used for testing
         // ---------------------------------------------------------------------------------------------------------------
         //
-        static void Main(string[] args)
+        static void Main2(string[] args)
         {
             // filter on process if any
             int pid = -1;

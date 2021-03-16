@@ -6,6 +6,7 @@
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <Platforms>AnyCPU;x64</Platforms>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

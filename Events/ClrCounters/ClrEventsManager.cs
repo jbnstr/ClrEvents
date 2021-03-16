@@ -51,18 +51,31 @@ namespace ClrCounters
         }
 
 
-        private static IReadOnlyCollection<Provider> GetProviders()
+        private IReadOnlyCollection<Provider> GetProviders()
         {
             var providers = new Provider[]
             {
                 new Provider(
                     name: "Microsoft-Windows-DotNETRuntime",
                     keywords:   GetKeywords(),
-                    eventLevel: EventLevel.Informational),
+                    eventLevel: ((_filter & EventFilter.AllocationTick) == EventFilter.AllocationTick) ? EventLevel.Verbose : EventLevel.Informational),
             };
 
             return providers;
         }
+
+        //private static IReadOnlyCollection<Provider> GetVerboseProviders()
+        //{
+        //    var providers = new Provider[]
+        //    {
+        //        new Provider(
+        //            name: "Microsoft-Windows-DotNETRuntime",
+        //            keywords:   GetKeywords(),
+        //            eventLevel: EventLevel.Verbose),
+        //    };
+
+        //    return providers;
+        //}
 
         private static ulong GetKeywords()
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Diagnostics.Tracing.Session;
@@ -51,6 +52,12 @@ namespace AllocationTickProfiler
                 await task;
 
                 ShowResults(allocations);
+
+
+                Console.WriteLine("Press ENTER to exit...");
+                Console.WriteLine();
+                Console.ReadLine();
+
                 return 0;
             }
             catch (Exception x)
@@ -93,13 +100,13 @@ namespace AllocationTickProfiler
 
         private static void ShowResults(ProcessAllocationInfo allocations)
         {
-            Console.WriteLine("  Small   Large         LOH  Type");
-            Console.WriteLine("---------------------------------------------------------");
+            Console.WriteLine("  Small   Large            LOH  Type");
+            Console.WriteLine("------------------------------------------------------------");
             foreach (var allocation in allocations.GetAllocations().OrderByDescending(a => a.Count))
             {
                 var smallCount = (allocation.SmallCount == 0) ? "       " : $"{allocation.SmallCount,7}";
                 var largeCount = (allocation.LargeCount == 0) ? "       " : $"{allocation.LargeCount,7}";
-                var largeSize = (allocation.LargeSize == 0) ? "          " : $"{allocation.LargeSize,10}";
+                var largeSize = (allocation.LargeSize == 0) ? "             " : string.Format(CultureInfo.GetCultureInfo(1043), "{0,13:N0}", allocation.LargeSize);
                 Console.WriteLine($"{smallCount} {largeCount}  {largeSize}  {allocation.TypeName}");
             }
         }
